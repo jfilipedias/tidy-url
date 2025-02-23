@@ -20,3 +20,7 @@ func (s *Service) Create(userID uuid.UUID, originalURL string) error {
 
 	return s.repo.Create(url)
 }
+
+func (s *Service) Get(hash string) (*URL, error) {
+	return s.repo.Get(hash)
+}

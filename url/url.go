@@ -39,3 +39,8 @@ type Repository interface {
 	Create(e *URL) error
 	Get(hash string) (*URL, error)
 }
+
+type UseCase interface {
+	Create(userID uuid.UUID, originalURL string) error
+	Get(hash string) (*URL, error)
+}
