@@ -1,10 +1,11 @@
 package url
 
 import (
+	"crypto/rand"
+	"math/big"
 	"time"
 
 	"github.com/google/uuid"
-	nanoid "github.com/matoous/go-nanoid/v2"
 )
 
 type URL struct {
@@ -30,9 +31,19 @@ func NewURL(userID uuid.UUID, originalURL string) (*URL, error) {
 	}, nil
 }
 
+const charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+const length = 8
+
 func generateHash() (string, error) {
-	alphabet := "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-	return nanoid.Generate(alphabet, 54)
+	var result []byte
+	for i := 0; i < length; i++ {
+		num, err := rand.Int(rand.Reader, big.NewInt(int64(len(charset))))
+		if err != nil {
+			return "", err
+		}
+		result = append(result, charset[num.Int64()])
+	}
+	return string(result), nil
 }
 
 type Repository interface {
