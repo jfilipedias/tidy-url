@@ -1,10 +1,10 @@
 package url
 
 import (
-	"reflect"
 	"testing"
 
 	"github.com/google/uuid"
+	"github.com/stretchr/testify/assert"
 	"go.uber.org/mock/gomock"
 )
 
@@ -23,10 +23,7 @@ func TestServiceGet(t *testing.T) {
 
 	s := NewService(repo)
 	got, err := s.Get(u.Hash)
-	if err != nil {
 
-	}
-	if !reflect.DeepEqual(u, got) {
-		t.Errorf("want %v, but got %v", u, got)
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, u, got)
 }
