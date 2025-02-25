@@ -6,6 +6,6 @@ filename: "{{.InterfaceName|lower}}_mock.go"
 mockname: "{{.InterfaceName}}"
 issue-845-fix: true
 packages:
-    github.com/jfilipedias/tidy-url/url:
+    github.com/jfilipedias/tidy-url/internal/url:
       config:
         all: true
