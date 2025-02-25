@@ -1,26 +1,26 @@
-package url
+package url_test
 
 import (
 	"testing"
 
 	"github.com/google/uuid"
 	"github.com/jfilipedias/tidy-url/constant"
+	"github.com/jfilipedias/tidy-url/url"
+	"github.com/jfilipedias/tidy-url/url/mocks"
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/mock/gomock"
+	"github.com/stretchr/testify/mock"
 )
 
 var userID = uuid.New()
 var originalURL = "http://example.com"
 
 func TestServiceCreate(t *testing.T) {
-	ctrl := gomock.NewController(t)
-	repo := NewMockRepository(ctrl)
+	repo := mocks.NewRepository(t)
 	repo.
-		EXPECT().
-		Create(gomock.Any()).
+		On("Create", mock.Anything).
 		Return(nil)
 
-	s := NewService(repo)
+	s := url.NewService(repo)
 	err := s.Create(userID, originalURL)
 
 	assert.NoError(t, err)
@@ -28,19 +28,17 @@ func TestServiceCreate(t *testing.T) {
 
 func TestServiceGet(t *testing.T) {
 	t.Run("existing url", func(t *testing.T) {
-		u, err := NewURL(userID, originalURL)
+		u, err := url.NewURL(userID, originalURL)
 		if err != nil {
 			t.Fatalf("failed to create a URL: %v", err)
 		}
 
-		ctrl := gomock.NewController(t)
-		repo := NewMockRepository(ctrl)
+		repo := mocks.NewRepository(t)
 		repo.
-			EXPECT().
-			Get(gomock.Eq(u.Hash)).
+			On("Get", u.Hash).
 			Return(u, nil)
 
-		s := NewService(repo)
+		s := url.NewService(repo)
 		got, err := s.Get(u.Hash)
 
 		assert.NoError(t, err)
@@ -48,14 +46,12 @@ func TestServiceGet(t *testing.T) {
 	})
 
 	t.Run("non-existing url", func(t *testing.T) {
-		ctrl := gomock.NewController(t)
-		repo := NewMockRepository(ctrl)
+		repo := mocks.NewRepository(t)
 		repo.
-			EXPECT().
-			Get("abcdefgh").
+			On("Get", mock.Anything).
 			Return(nil, constant.ErrEntityNotFound)
 
-		s := NewService(repo)
+		s := url.NewService(repo)
 		u, err := s.Get("abcdefgh")
 
 		assert.Error(t, err)
