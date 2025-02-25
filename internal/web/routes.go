@@ -3,14 +3,13 @@ package web
 import (
 	"net/http"
 
-	"github.com/labstack/echo/v4"
+	"github.com/a-h/templ"
+	"github.com/go-chi/chi/v5"
+	"github.com/jfilipedias/tidy-url/ui/pages"
 )
 
 func routes() http.Handler {
-	e := echo.New()
-	e.GET("/", home)
-	e.GET("/url", createURL)
-	e.POST("/url", createURLPost)
-	e.GET("/:hash", retrieveOriginalURL)
-	return e
+	r := chi.NewRouter()
+	r.Get("/", templ.Handler(pages.Home()).ServeHTTP)
+	return r
 }
