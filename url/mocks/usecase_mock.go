@@ -3,6 +3,8 @@
 package mocks
 
 import (
+	context "context"
+
 	url "github.com/jfilipedias/tidy-url/url"
 	mock "github.com/stretchr/testify/mock"
 
@@ -22,17 +24,17 @@ func (_m *UseCase) EXPECT() *UseCase_Expecter {
 	return &UseCase_Expecter{mock: &_m.Mock}
 }
 
-// Create provides a mock function with given fields: userID, originalURL
-func (_m *UseCase) Create(userID uuid.UUID, originalURL string) error {
-	ret := _m.Called(userID, originalURL)
+// Create provides a mock function with given fields: ctx, userID, originalURL
+func (_m *UseCase) Create(ctx context.Context, userID uuid.UUID, originalURL string) error {
+	ret := _m.Called(ctx, userID, originalURL)
 
 	if len(ret) == 0 {
 		panic("no return value specified for Create")
 	}
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(uuid.UUID, string) error); ok {
-		r0 = rf(userID, originalURL)
+	if rf, ok := ret.Get(0).(func(context.Context, uuid.UUID, string) error); ok {
+		r0 = rf(ctx, userID, originalURL)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -46,15 +48,16 @@ type UseCase_Create_Call struct {
 }
 
 // Create is a helper method to define mock.On call
+//   - ctx context.Context
 //   - userID uuid.UUID
 //   - originalURL string
-func (_e *UseCase_Expecter) Create(userID interface{}, originalURL interface{}) *UseCase_Create_Call {
-	return &UseCase_Create_Call{Call: _e.mock.On("Create", userID, originalURL)}
+func (_e *UseCase_Expecter) Create(ctx interface{}, userID interface{}, originalURL interface{}) *UseCase_Create_Call {
+	return &UseCase_Create_Call{Call: _e.mock.On("Create", ctx, userID, originalURL)}
 }
 
-func (_c *UseCase_Create_Call) Run(run func(userID uuid.UUID, originalURL string)) *UseCase_Create_Call {
+func (_c *UseCase_Create_Call) Run(run func(ctx context.Context, userID uuid.UUID, originalURL string)) *UseCase_Create_Call {
 	_c.Call.Run(func(args mock.Arguments) {
-		run(args[0].(uuid.UUID), args[1].(string))
+		run(args[0].(context.Context), args[1].(uuid.UUID), args[2].(string))
 	})
 	return _c
 }
@@ -64,14 +67,14 @@ func (_c *UseCase_Create_Call) Return(_a0 error) *UseCase_Create_Call {
 	return _c
 }
 
-func (_c *UseCase_Create_Call) RunAndReturn(run func(uuid.UUID, string) error) *UseCase_Create_Call {
+func (_c *UseCase_Create_Call) RunAndReturn(run func(context.Context, uuid.UUID, string) error) *UseCase_Create_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
-// Get provides a mock function with given fields: hash
-func (_m *UseCase) Get(hash string) (*url.URL, error) {
-	ret := _m.Called(hash)
+// Get provides a mock function with given fields: ctx, hash
+func (_m *UseCase) Get(ctx context.Context, hash string) (*url.URL, error) {
+	ret := _m.Called(ctx, hash)
 
 	if len(ret) == 0 {
 		panic("no return value specified for Get")
@@ -79,19 +82,19 @@ func (_m *UseCase) Get(hash string) (*url.URL, error) {
 
 	var r0 *url.URL
 	var r1 error
-	if rf, ok := ret.Get(0).(func(string) (*url.URL, error)); ok {
-		return rf(hash)
+	if rf, ok := ret.Get(0).(func(context.Context, string) (*url.URL, error)); ok {
+		return rf(ctx, hash)
 	}
-	if rf, ok := ret.Get(0).(func(string) *url.URL); ok {
-		r0 = rf(hash)
+	if rf, ok := ret.Get(0).(func(context.Context, string) *url.URL); ok {
+		r0 = rf(ctx, hash)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*url.URL)
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(string) error); ok {
-		r1 = rf(hash)
+	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
+		r1 = rf(ctx, hash)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -105,14 +108,15 @@ type UseCase_Get_Call struct {
 }
 
 // Get is a helper method to define mock.On call
+//   - ctx context.Context
 //   - hash string
-func (_e *UseCase_Expecter) Get(hash interface{}) *UseCase_Get_Call {
-	return &UseCase_Get_Call{Call: _e.mock.On("Get", hash)}
+func (_e *UseCase_Expecter) Get(ctx interface{}, hash interface{}) *UseCase_Get_Call {
+	return &UseCase_Get_Call{Call: _e.mock.On("Get", ctx, hash)}
 }
 
-func (_c *UseCase_Get_Call) Run(run func(hash string)) *UseCase_Get_Call {
+func (_c *UseCase_Get_Call) Run(run func(ctx context.Context, hash string)) *UseCase_Get_Call {
 	_c.Call.Run(func(args mock.Arguments) {
-		run(args[0].(string))
+		run(args[0].(context.Context), args[1].(string))
 	})
 	return _c
 }
@@ -122,7 +126,7 @@ func (_c *UseCase_Get_Call) Return(_a0 *url.URL, _a1 error) *UseCase_Get_Call {
 	return _c
 }
 
-func (_c *UseCase_Get_Call) RunAndReturn(run func(string) (*url.URL, error)) *UseCase_Get_Call {
+func (_c *UseCase_Get_Call) RunAndReturn(run func(context.Context, string) (*url.URL, error)) *UseCase_Get_Call {
 	_c.Call.Return(run)
 	return _c
 }

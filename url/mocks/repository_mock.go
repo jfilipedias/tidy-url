@@ -3,6 +3,8 @@
 package mocks
 
 import (
+	context "context"
+
 	url "github.com/jfilipedias/tidy-url/url"
 	mock "github.com/stretchr/testify/mock"
 )
@@ -20,17 +22,17 @@ func (_m *Repository) EXPECT() *Repository_Expecter {
 	return &Repository_Expecter{mock: &_m.Mock}
 }
 
-// Create provides a mock function with given fields: e
-func (_m *Repository) Create(e *url.URL) error {
-	ret := _m.Called(e)
+// Create provides a mock function with given fields: ctx, u
+func (_m *Repository) Create(ctx context.Context, u *url.URL) error {
+	ret := _m.Called(ctx, u)
 
 	if len(ret) == 0 {
 		panic("no return value specified for Create")
 	}
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(*url.URL) error); ok {
-		r0 = rf(e)
+	if rf, ok := ret.Get(0).(func(context.Context, *url.URL) error); ok {
+		r0 = rf(ctx, u)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -44,14 +46,15 @@ type Repository_Create_Call struct {
 }
 
 // Create is a helper method to define mock.On call
-//   - e *url.URL
-func (_e *Repository_Expecter) Create(e interface{}) *Repository_Create_Call {
-	return &Repository_Create_Call{Call: _e.mock.On("Create", e)}
+//   - ctx context.Context
+//   - u *url.URL
+func (_e *Repository_Expecter) Create(ctx interface{}, u interface{}) *Repository_Create_Call {
+	return &Repository_Create_Call{Call: _e.mock.On("Create", ctx, u)}
 }
 
-func (_c *Repository_Create_Call) Run(run func(e *url.URL)) *Repository_Create_Call {
+func (_c *Repository_Create_Call) Run(run func(ctx context.Context, u *url.URL)) *Repository_Create_Call {
 	_c.Call.Run(func(args mock.Arguments) {
-		run(args[0].(*url.URL))
+		run(args[0].(context.Context), args[1].(*url.URL))
 	})
 	return _c
 }
@@ -61,14 +64,14 @@ func (_c *Repository_Create_Call) Return(_a0 error) *Repository_Create_Call {
 	return _c
 }
 
-func (_c *Repository_Create_Call) RunAndReturn(run func(*url.URL) error) *Repository_Create_Call {
+func (_c *Repository_Create_Call) RunAndReturn(run func(context.Context, *url.URL) error) *Repository_Create_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
-// Get provides a mock function with given fields: hash
-func (_m *Repository) Get(hash string) (*url.URL, error) {
-	ret := _m.Called(hash)
+// Get provides a mock function with given fields: ctx, hash
+func (_m *Repository) Get(ctx context.Context, hash string) (*url.URL, error) {
+	ret := _m.Called(ctx, hash)
 
 	if len(ret) == 0 {
 		panic("no return value specified for Get")
@@ -76,19 +79,19 @@ func (_m *Repository) Get(hash string) (*url.URL, error) {
 
 	var r0 *url.URL
 	var r1 error
-	if rf, ok := ret.Get(0).(func(string) (*url.URL, error)); ok {
-		return rf(hash)
+	if rf, ok := ret.Get(0).(func(context.Context, string) (*url.URL, error)); ok {
+		return rf(ctx, hash)
 	}
-	if rf, ok := ret.Get(0).(func(string) *url.URL); ok {
-		r0 = rf(hash)
+	if rf, ok := ret.Get(0).(func(context.Context, string) *url.URL); ok {
+		r0 = rf(ctx, hash)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*url.URL)
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(string) error); ok {
-		r1 = rf(hash)
+	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
+		r1 = rf(ctx, hash)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -102,14 +105,15 @@ type Repository_Get_Call struct {
 }
 
 // Get is a helper method to define mock.On call
+//   - ctx context.Context
 //   - hash string
-func (_e *Repository_Expecter) Get(hash interface{}) *Repository_Get_Call {
-	return &Repository_Get_Call{Call: _e.mock.On("Get", hash)}
+func (_e *Repository_Expecter) Get(ctx interface{}, hash interface{}) *Repository_Get_Call {
+	return &Repository_Get_Call{Call: _e.mock.On("Get", ctx, hash)}
 }
 
-func (_c *Repository_Get_Call) Run(run func(hash string)) *Repository_Get_Call {
+func (_c *Repository_Get_Call) Run(run func(ctx context.Context, hash string)) *Repository_Get_Call {
 	_c.Call.Run(func(args mock.Arguments) {
-		run(args[0].(string))
+		run(args[0].(context.Context), args[1].(string))
 	})
 	return _c
 }
@@ -119,7 +123,7 @@ func (_c *Repository_Get_Call) Return(_a0 *url.URL, _a1 error) *Repository_Get_C
 	return _c
 }
 
-func (_c *Repository_Get_Call) RunAndReturn(run func(string) (*url.URL, error)) *Repository_Get_Call {
+func (_c *Repository_Get_Call) RunAndReturn(run func(context.Context, string) (*url.URL, error)) *Repository_Get_Call {
 	_c.Call.Return(run)
 	return _c
 }

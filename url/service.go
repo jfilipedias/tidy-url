@@ -1,6 +1,8 @@
 package url
 
 import (
+	"context"
+
 	"github.com/google/uuid"
 )
 
@@ -12,15 +14,15 @@ func NewService(repo Repository) *Service {
 	return &Service{repo}
 }
 
-func (s *Service) Create(userID uuid.UUID, originalURL string) error {
+func (s *Service) Create(ctx context.Context, userID uuid.UUID, originalURL string) error {
 	url, err := NewURL(userID, originalURL)
 	if err != nil {
 		return err
 	}
 
-	return s.repo.Create(url)
+	return s.repo.Create(ctx, url)
 }
 
-func (s *Service) Get(hash string) (*URL, error) {
-	return s.repo.Get(hash)
+func (s *Service) Get(ctx context.Context, hash string) (*URL, error) {
+	return s.repo.Get(ctx, hash)
 }

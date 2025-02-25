@@ -1,6 +1,7 @@
 package url_test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/google/uuid"
@@ -17,11 +18,11 @@ var originalURL = "http://example.com"
 func TestServiceCreate(t *testing.T) {
 	repo := mocks.NewRepository(t)
 	repo.
-		On("Create", mock.Anything).
+		On("Create", mock.Anything, mock.Anything).
 		Return(nil)
 
 	s := url.NewService(repo)
-	err := s.Create(userID, originalURL)
+	err := s.Create(context.Background(), userID, originalURL)
 
 	assert.NoError(t, err)
 }
@@ -35,11 +36,11 @@ func TestServiceGet(t *testing.T) {
 
 		repo := mocks.NewRepository(t)
 		repo.
-			On("Get", u.Hash).
+			On("Get", mock.Anything, u.Hash).
 			Return(u, nil)
 
 		s := url.NewService(repo)
-		got, err := s.Get(u.Hash)
+		got, err := s.Get(context.Background(), u.Hash)
 
 		assert.NoError(t, err)
 		assert.Equal(t, u, got)
@@ -48,11 +49,11 @@ func TestServiceGet(t *testing.T) {
 	t.Run("non-existing url", func(t *testing.T) {
 		repo := mocks.NewRepository(t)
 		repo.
-			On("Get", mock.Anything).
+			On("Get", mock.Anything, mock.Anything).
 			Return(nil, constant.ErrEntityNotFound)
 
 		s := url.NewService(repo)
-		u, err := s.Get("abcdefgh")
+		u, err := s.Get(context.Background(), "abcdefgh")
 
 		assert.Error(t, err)
 		assert.Nil(t, u)

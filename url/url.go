@@ -1,6 +1,7 @@
 package url
 
 import (
+	"context"
 	"crypto/rand"
 	"math/big"
 	"time"
@@ -9,11 +10,11 @@ import (
 )
 
 type URL struct {
-	ID          uuid.UUID
-	UserID      uuid.UUID
-	OriginalURL string
-	Hash        string
-	CreatedAt   time.Time
+	ID          uuid.UUID `bson:"_id"`
+	UserID      uuid.UUID `bson:"user_id"`
+	OriginalURL string    `bson:"original_url"`
+	Hash        string    `bson:"hash"`
+	CreatedAt   time.Time `bson:"created_at"`
 }
 
 func NewURL(userID uuid.UUID, originalURL string) (*URL, error) {
@@ -47,11 +48,11 @@ func generateHash() (string, error) {
 }
 
 type Repository interface {
-	Create(e *URL) error
-	Get(hash string) (*URL, error)
+	Create(ctx context.Context, u *URL) error
+	Get(ctx context.Context, hash string) (*URL, error)
 }
 
 type UseCase interface {
-	Create(userID uuid.UUID, originalURL string) error
-	Get(hash string) (*URL, error)
+	Create(ctx context.Context, userID uuid.UUID, originalURL string) error
+	Get(ctx context.Context, hash string) (*URL, error)
 }
