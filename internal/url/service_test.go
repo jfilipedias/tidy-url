@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/jfilipedias/tidy-url/constant"
-	"github.com/jfilipedias/tidy-url/url"
-	"github.com/jfilipedias/tidy-url/url/mocks"
+	"github.com/jfilipedias/tidy-url/internal/constant"
+	"github.com/jfilipedias/tidy-url/internal/url"
+	"github.com/jfilipedias/tidy-url/internal/url/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -19,7 +19,8 @@ func TestServiceCreate(t *testing.T) {
 	repo := mocks.NewRepository(t)
 	repo.
 		On("Create", mock.Anything, mock.Anything).
-		Return(nil)
+		Return(nil).
+		Once()
 
 	s := url.NewService(repo)
 	err := s.Create(context.Background(), userID, originalURL)
@@ -37,7 +38,8 @@ func TestServiceGet(t *testing.T) {
 		repo := mocks.NewRepository(t)
 		repo.
 			On("Get", mock.Anything, u.Hash).
-			Return(u, nil)
+			Return(u, nil).
+			Once()
 
 		s := url.NewService(repo)
 		got, err := s.Get(context.Background(), u.Hash)
@@ -50,7 +52,8 @@ func TestServiceGet(t *testing.T) {
 		repo := mocks.NewRepository(t)
 		repo.
 			On("Get", mock.Anything, mock.Anything).
-			Return(nil, constant.ErrEntityNotFound)
+			Return(nil, constant.ErrEntityNotFound).
+			Once()
 
 		s := url.NewService(repo)
 		u, err := s.Get(context.Background(), "abcdefgh")

@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/url"
 
+	"github.com/jfilipedias/tidy-url/internal/constant"
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
@@ -24,9 +25,15 @@ func (m *MongoDB) Create(ctx context.Context, u *url.URL) error {
 
 func (m *MongoDB) Get(ctx context.Context, hash string) (*url.URL, error) {
 	coll := m.conn.Database("tidy-url").Collection("urls")
-	f := bson.D{{Key: "hash", Value: hash}}
 
 	var result url.URL
-	err := coll.FindOne(ctx, f).Decode(&result)
+	err := coll.FindOne(ctx, bson.D{{Key: "hash", Value: hash}}).Decode(&result)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return nil, constant.ErrEntityNotFound
+		} else {
+			return nil, err
+		}
+	}
 	return &result, err
 }
