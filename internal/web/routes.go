@@ -12,6 +12,5 @@ func routes() http.Handler {
 	e.GET("/url", createURL)
 	e.POST("/url", createURLPost)
 	e.GET("/:hash", retrieveOriginalURL)
-
 	return e
 }

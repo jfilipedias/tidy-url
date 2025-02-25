@@ -3,8 +3,7 @@ package web
 import "github.com/labstack/echo/v4"
 
 func home(c echo.Context) error {
-	c.String(200, "Hello World!")
-	return nil
+	return c.String(200, "Hello World!")
 }
 
 func createURL(c echo.Context) error {
