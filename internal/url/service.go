@@ -14,8 +14,8 @@ func NewService(repo Repository) *Service {
 	return &Service{repo}
 }
 
-func (s *Service) Create(ctx context.Context, userID uuid.UUID, originalURL string) error {
-	url, err := NewURL(userID, originalURL)
+func (s *Service) Create(ctx context.Context, originalURL string, userID *uuid.UUID) error {
+	url, err := NewURL(originalURL, userID)
 	if err != nil {
 		return err
 	}

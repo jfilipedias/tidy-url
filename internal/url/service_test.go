@@ -4,7 +4,6 @@ import (
 	"context"
 	"testing"
 
-	"github.com/google/uuid"
 	"github.com/jfilipedias/tidy-url/internal/constant"
 	"github.com/jfilipedias/tidy-url/internal/url"
 	"github.com/jfilipedias/tidy-url/internal/url/mocks"
@@ -12,7 +11,6 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-var userID = uuid.New()
 var originalURL = "http://example.com"
 
 func TestServiceCreate(t *testing.T) {
@@ -23,14 +21,14 @@ func TestServiceCreate(t *testing.T) {
 		Once()
 
 	s := url.NewService(repo)
-	err := s.Create(context.Background(), userID, originalURL)
+	err := s.Create(context.Background(), originalURL, nil)
 
 	assert.NoError(t, err)
 }
 
 func TestServiceGet(t *testing.T) {
 	t.Run("existing url", func(t *testing.T) {
-		u, err := url.NewURL(userID, originalURL)
+		u, err := url.NewURL(originalURL, nil)
 		if err != nil {
 			t.Fatalf("failed to create a URL: %v", err)
 		}

@@ -12,15 +12,6 @@ help:
 # DEVELOPMENT
 # ==================================================================================== #
 
-## run: executes the program
-.PHONY: run
-run: 
-	@echo 'Generating template pages'
-	templ generate
-	@echo 'Generating css files'
-	npx @tailwindcss/cli -i ui/static/css/style.css -o ./ui/static/css/tailwind.css
-	go run ./cmd/app
-
 ## tools: install development tools
 .PHONY: tools
 tools:
@@ -31,11 +22,26 @@ tools:
 	@echo 'Installing Tailwind CSS'
 	npm install -g @tailwindcss/cli
 
+## mocks: generate interfaces mocks
+.PHONY: mocks
+mocks:
+	@echo 'Generating mocks'
+	@mockery
+
+## run: executes the program
+.PHONY: run
+run: 
+	@echo 'Generating template pages'
+	templ generate
+	@echo 'Generating css files'
+	npx @tailwindcss/cli -i ui/static/css/style.css -o ./ui/static/css/tailwind.css
+	go run ./cmd/app
+
 # ==================================================================================== #
 # TEST
 # ==================================================================================== #
 
 ## test: run application tests
-.PHONY: test
-test:
+.PHONY: tests
+tests:
 	go test ./...

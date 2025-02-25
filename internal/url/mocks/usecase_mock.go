@@ -24,17 +24,17 @@ func (_m *UseCase) EXPECT() *UseCase_Expecter {
 	return &UseCase_Expecter{mock: &_m.Mock}
 }
 
-// Create provides a mock function with given fields: ctx, userID, originalURL
-func (_m *UseCase) Create(ctx context.Context, userID uuid.UUID, originalURL string) error {
-	ret := _m.Called(ctx, userID, originalURL)
+// Create provides a mock function with given fields: ctx, originalURL, userID
+func (_m *UseCase) Create(ctx context.Context, originalURL string, userID uuid.UUID) error {
+	ret := _m.Called(ctx, originalURL, userID)
 
 	if len(ret) == 0 {
 		panic("no return value specified for Create")
 	}
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, uuid.UUID, string) error); ok {
-		r0 = rf(ctx, userID, originalURL)
+	if rf, ok := ret.Get(0).(func(context.Context, string, uuid.UUID) error); ok {
+		r0 = rf(ctx, originalURL, userID)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -49,15 +49,15 @@ type UseCase_Create_Call struct {
 
 // Create is a helper method to define mock.On call
 //   - ctx context.Context
-//   - userID uuid.UUID
 //   - originalURL string
-func (_e *UseCase_Expecter) Create(ctx interface{}, userID interface{}, originalURL interface{}) *UseCase_Create_Call {
-	return &UseCase_Create_Call{Call: _e.mock.On("Create", ctx, userID, originalURL)}
+//   - userID uuid.UUID
+func (_e *UseCase_Expecter) Create(ctx interface{}, originalURL interface{}, userID interface{}) *UseCase_Create_Call {
+	return &UseCase_Create_Call{Call: _e.mock.On("Create", ctx, originalURL, userID)}
 }
 
-func (_c *UseCase_Create_Call) Run(run func(ctx context.Context, userID uuid.UUID, originalURL string)) *UseCase_Create_Call {
+func (_c *UseCase_Create_Call) Run(run func(ctx context.Context, originalURL string, userID uuid.UUID)) *UseCase_Create_Call {
 	_c.Call.Run(func(args mock.Arguments) {
-		run(args[0].(context.Context), args[1].(uuid.UUID), args[2].(string))
+		run(args[0].(context.Context), args[1].(string), args[2].(uuid.UUID))
 	})
 	return _c
 }
@@ -67,7 +67,7 @@ func (_c *UseCase_Create_Call) Return(_a0 error) *UseCase_Create_Call {
 	return _c
 }
 
-func (_c *UseCase_Create_Call) RunAndReturn(run func(context.Context, uuid.UUID, string) error) *UseCase_Create_Call {
+func (_c *UseCase_Create_Call) RunAndReturn(run func(context.Context, string, uuid.UUID) error) *UseCase_Create_Call {
 	_c.Call.Return(run)
 	return _c
 }

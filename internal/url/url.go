@@ -10,14 +10,14 @@ import (
 )
 
 type URL struct {
-	ID          uuid.UUID `bson:"_id"`
-	UserID      uuid.UUID `bson:"user_id"`
-	OriginalURL string    `bson:"original_url"`
-	Hash        string    `bson:"hash"`
-	CreatedAt   time.Time `bson:"created_at"`
+	ID          uuid.UUID  `bson:"_id"`
+	UserID      *uuid.UUID `bson:"user_id"`
+	OriginalURL string     `bson:"original_url"`
+	Hash        string     `bson:"hash"`
+	CreatedAt   time.Time  `bson:"created_at"`
 }
 
-func NewURL(userID uuid.UUID, originalURL string) (*URL, error) {
+func NewURL(originalURL string, userID *uuid.UUID) (*URL, error) {
 	hash, err := generateHash()
 	if err != nil {
 		return nil, err
@@ -53,6 +53,6 @@ type Repository interface {
 }
 
 type UseCase interface {
-	Create(ctx context.Context, userID uuid.UUID, originalURL string) error
+	Create(ctx context.Context, originalURL string, userID *uuid.UUID) error
 	Get(ctx context.Context, hash string) (*URL, error)
 }
