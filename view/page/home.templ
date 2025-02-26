@@ -3,7 +3,7 @@ package page
 templ main() {
   <main class="flex items-center justify-center w-full">
     <div class="flex flex-col gap-4 w-full max-w-2xl mx-auto mt-60">
-      <h1 class="text-xl font-bold text-gray-900">
+      <h1 class="text-2xl font-semibold text-gray-900">
         Shorten a long link
       </h1>
       <form action="/url" class="flex gap-2">
@@ -11,7 +11,7 @@ templ main() {
           type="url"
           id="originalUrl"
           name="originalUrl"
-          class="w-full appearance-none rounded-md border px-2.5 py-2 shadow-sm outline-none transition border-gray-300 text-gray-900 placeholder-gray-400 bg-white disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400 disabled:dark:bg-gray-800 disabled:dark:text-gray-500 focus:outline-none disabled:pointer-events-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
+          class="w-full appearance-none rounded-md border px-2.5 py-2 shadow-sm outline-none transition border-gray-300 text-sm text-gray-900 placeholder-gray-400 bg-white disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400 disabled:dark:bg-gray-800 disabled:dark:text-gray-500 focus:outline-none disabled:pointer-events-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
           placeholder="https://example.com/a-really-long-link" 
           autofocus
         />
