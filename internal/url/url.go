@@ -10,14 +10,15 @@ import (
 )
 
 type URL struct {
-	ID          uuid.UUID  `bson:"_id"`
-	UserID      *uuid.UUID `bson:"user_id"`
-	OriginalURL string     `bson:"original_url"`
-	Hash        string     `bson:"hash"`
-	CreatedAt   time.Time  `bson:"created_at"`
+	ID          uuid.UUID `bson:"_id"`
+	UserID      uuid.UUID `bson:"user_id"`
+	OriginalURL string    `bson:"original_url"`
+	Hash        string    `bson:"hash"`
+	CreatedAt   time.Time `bson:"created_at"`
+	ExpireAt    time.Time `bson:"expire_at,omitzero"`
 }
 
-func NewURL(originalURL string, userID *uuid.UUID) (*URL, error) {
+func NewUserURL(originalURL string, userID uuid.UUID) (*URL, error) {
 	hash, err := generateHash()
 	if err != nil {
 		return nil, err
@@ -28,7 +29,22 @@ func NewURL(originalURL string, userID *uuid.UUID) (*URL, error) {
 		UserID:      userID,
 		Hash:        hash,
 		OriginalURL: originalURL,
-		CreatedAt:   time.Now(),
+		CreatedAt:   time.Now().UTC(),
+	}, nil
+}
+
+func NewAnonymousURL(originalURL string) (*URL, error) {
+	hash, err := generateHash()
+	if err != nil {
+		return nil, err
+	}
+
+	return &URL{
+		ID:          uuid.New(),
+		Hash:        hash,
+		OriginalURL: originalURL,
+		CreatedAt:   time.Now().UTC(),
+		ExpireAt:    time.Now().AddDate(0, 0, 3).UTC(),
 	}, nil
 }
 
@@ -53,6 +69,7 @@ type Repository interface {
 }
 
 type UseCase interface {
-	Create(ctx context.Context, originalURL string, userID *uuid.UUID) error
+	CreateAnonymous(ctx context.Context, originalURL string) error
+	CreateToUser(ctx context.Context, originalURL string, userID uuid.UUID) error
 	Get(ctx context.Context, hash string) (*URL, error)
 }

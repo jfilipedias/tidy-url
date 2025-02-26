@@ -4,6 +4,7 @@ import (
 	"context"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/jfilipedias/tidy-url/internal/constant"
 	"github.com/jfilipedias/tidy-url/internal/url"
 	"github.com/jfilipedias/tidy-url/internal/url/mocks"
@@ -13,7 +14,7 @@ import (
 
 var originalURL = "http://example.com"
 
-func TestServiceCreate(t *testing.T) {
+func TestServiceCreateAnonymous(t *testing.T) {
 	repo := mocks.NewRepository(t)
 	repo.
 		On("Create", mock.Anything, mock.Anything).
@@ -21,14 +22,27 @@ func TestServiceCreate(t *testing.T) {
 		Once()
 
 	s := url.NewService(repo)
-	err := s.Create(context.Background(), originalURL, nil)
+	err := s.CreateAnonymous(context.Background(), originalURL)
+
+	assert.NoError(t, err)
+}
+
+func TestServiceCreateToUser(t *testing.T) {
+	repo := mocks.NewRepository(t)
+	repo.
+		On("Create", mock.Anything, mock.Anything).
+		Return(nil).
+		Once()
+
+	s := url.NewService(repo)
+	err := s.CreateToUser(context.Background(), originalURL, uuid.New())
 
 	assert.NoError(t, err)
 }
 
 func TestServiceGet(t *testing.T) {
 	t.Run("existing url", func(t *testing.T) {
-		u, err := url.NewURL(originalURL, nil)
+		u, err := url.NewAnonymousURL(originalURL)
 		if err != nil {
 			t.Fatalf("failed to create a URL: %v", err)
 		}

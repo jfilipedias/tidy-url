@@ -24,12 +24,59 @@ func (_m *UseCase) EXPECT() *UseCase_Expecter {
 	return &UseCase_Expecter{mock: &_m.Mock}
 }
 
-// Create provides a mock function with given fields: ctx, originalURL, userID
-func (_m *UseCase) Create(ctx context.Context, originalURL string, userID uuid.UUID) error {
+// CreateAnonymous provides a mock function with given fields: ctx, originalURL
+func (_m *UseCase) CreateAnonymous(ctx context.Context, originalURL string) error {
+	ret := _m.Called(ctx, originalURL)
+
+	if len(ret) == 0 {
+		panic("no return value specified for CreateAnonymous")
+	}
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string) error); ok {
+		r0 = rf(ctx, originalURL)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// UseCase_CreateAnonymous_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'CreateAnonymous'
+type UseCase_CreateAnonymous_Call struct {
+	*mock.Call
+}
+
+// CreateAnonymous is a helper method to define mock.On call
+//   - ctx context.Context
+//   - originalURL string
+func (_e *UseCase_Expecter) CreateAnonymous(ctx interface{}, originalURL interface{}) *UseCase_CreateAnonymous_Call {
+	return &UseCase_CreateAnonymous_Call{Call: _e.mock.On("CreateAnonymous", ctx, originalURL)}
+}
+
+func (_c *UseCase_CreateAnonymous_Call) Run(run func(ctx context.Context, originalURL string)) *UseCase_CreateAnonymous_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(context.Context), args[1].(string))
+	})
+	return _c
+}
+
+func (_c *UseCase_CreateAnonymous_Call) Return(_a0 error) *UseCase_CreateAnonymous_Call {
+	_c.Call.Return(_a0)
+	return _c
+}
+
+func (_c *UseCase_CreateAnonymous_Call) RunAndReturn(run func(context.Context, string) error) *UseCase_CreateAnonymous_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
+// CreateToUser provides a mock function with given fields: ctx, originalURL, userID
+func (_m *UseCase) CreateToUser(ctx context.Context, originalURL string, userID uuid.UUID) error {
 	ret := _m.Called(ctx, originalURL, userID)
 
 	if len(ret) == 0 {
-		panic("no return value specified for Create")
+		panic("no return value specified for CreateToUser")
 	}
 
 	var r0 error
@@ -42,32 +89,32 @@ func (_m *UseCase) Create(ctx context.Context, originalURL string, userID uuid.U
 	return r0
 }
 
-// UseCase_Create_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Create'
-type UseCase_Create_Call struct {
+// UseCase_CreateToUser_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'CreateToUser'
+type UseCase_CreateToUser_Call struct {
 	*mock.Call
 }
 
-// Create is a helper method to define mock.On call
+// CreateToUser is a helper method to define mock.On call
 //   - ctx context.Context
 //   - originalURL string
 //   - userID uuid.UUID
-func (_e *UseCase_Expecter) Create(ctx interface{}, originalURL interface{}, userID interface{}) *UseCase_Create_Call {
-	return &UseCase_Create_Call{Call: _e.mock.On("Create", ctx, originalURL, userID)}
+func (_e *UseCase_Expecter) CreateToUser(ctx interface{}, originalURL interface{}, userID interface{}) *UseCase_CreateToUser_Call {
+	return &UseCase_CreateToUser_Call{Call: _e.mock.On("CreateToUser", ctx, originalURL, userID)}
 }
 
-func (_c *UseCase_Create_Call) Run(run func(ctx context.Context, originalURL string, userID uuid.UUID)) *UseCase_Create_Call {
+func (_c *UseCase_CreateToUser_Call) Run(run func(ctx context.Context, originalURL string, userID uuid.UUID)) *UseCase_CreateToUser_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		run(args[0].(context.Context), args[1].(string), args[2].(uuid.UUID))
 	})
 	return _c
 }
 
-func (_c *UseCase_Create_Call) Return(_a0 error) *UseCase_Create_Call {
+func (_c *UseCase_CreateToUser_Call) Return(_a0 error) *UseCase_CreateToUser_Call {
 	_c.Call.Return(_a0)
 	return _c
 }
 
-func (_c *UseCase_Create_Call) RunAndReturn(run func(context.Context, string, uuid.UUID) error) *UseCase_Create_Call {
+func (_c *UseCase_CreateToUser_Call) RunAndReturn(run func(context.Context, string, uuid.UUID) error) *UseCase_CreateToUser_Call {
 	_c.Call.Return(run)
 	return _c
 }
