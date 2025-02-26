@@ -1,7 +1,23 @@
 package page
 
 templ main() {
-  <div class="text-3xl">Hello, World</div>
+  <form 
+    action="/url"
+    class="flex flex-col gap-4"
+  >
+    <label for="originalUrl" class="text-lg font-semibold text-gray-900 dark:text-gray-50">
+      Shorten a long link
+    </label>
+    <input 
+      type="url" 
+      name="originalUrl" 
+      placeholder="https://example.com/a-really-long-link" 
+      autofocus
+    />
+    <button type="submit" class="cursor-pointer items-center justify-center rounded-md border px-3 py-2 text-center font-medium transition-all duration-200 ease-in-out text-base sm:text-sm border-b-[1.5px] border-orange-700 text-white bg-linear-to-b from-orange-400 to-orange-500 shadow-[0_0_0_2px_rgba(0,0,0,0.04),0_0_14px_0_rgba(255,255,255,0.19)] hover:shadow-orange-300">
+      Get your link
+    </button>
+  </form>
 }
 
 templ Home() {
