@@ -5,13 +5,13 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/go-chi/chi/v5"
-	"github.com/jfilipedias/tidy-url/ui"
-	"github.com/jfilipedias/tidy-url/ui/page"
+	"github.com/jfilipedias/tidy-url/view"
+	"github.com/jfilipedias/tidy-url/view/page"
 )
 
 func routes() http.Handler {
 	r := chi.NewRouter()
 	r.Get("/", templ.Handler(page.Home()).ServeHTTP)
-	r.Get("/static/*", http.FileServerFS(ui.Files).ServeHTTP)
+	r.Get("/static/*", http.FileServerFS(view.Files).ServeHTTP)
 	return r
 }
