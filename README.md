@@ -4,12 +4,19 @@ A URL shortener micro SaaS built with Go, chi, templ, Tailwind and MongoDB.
 
 ## Getting stated
 
-To run the project you need Go 1.24.0, or above, to run the project, and Node.js 20.11.0 and npm 10.5.0 to generate the CSS through Tailwind CLI.
+To run the project you need Go 1.24.0.
 
 Install the tools need to run the project:
 ```sh
 go mod download
-npm install
+```
+
+Install the Tailwind [standalone executable](https://github.com/tailwindlabs/tailwindcss/releases):
+```sh
+curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-macos-arm64
+chmod +x tailwindcss-macos-arm64
+mkdir bin
+mv tailwindcss-macos-arm64 bin/tailwindcss
 ```
 
 To run the project you will need to run 3 separeted process:

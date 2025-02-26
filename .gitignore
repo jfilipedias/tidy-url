@@ -1,3 +1,2 @@
-/node_modules
-/tmp
-/view/static/css/tailwind.css
+/bin
+/**/tailwind.css

@@ -26,7 +26,7 @@ views:
 ## views: generate the css files
 .PHONY: styles
 styles: 
-	npx @tailwindcss/cli -i ./view/static/css/style.css -o ./view/static/css/tailwind.css --watch 
+	./bin/tailwindcss --input ./view/static/css/style.css --output ./view/static/css/tailwind.css --watch 
 
 ## run: executes the program
 .PHONY: run
