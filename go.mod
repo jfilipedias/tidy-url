@@ -3,9 +3,7 @@ module github.com/jfilipedias/tidy-url
 go 1.24.0
 
 require (
-	github.com/a-h/templ v0.3.833
 	github.com/go-chi/chi/v5 v5.2.1
-	github.com/go-playground/form/v4 v4.2.1
 	github.com/google/uuid v1.6.0
 	github.com/stretchr/testify v1.10.0
 	go.mongodb.org/mongo-driver/v2 v2.0.1
@@ -15,6 +13,7 @@ require (
 	dario.cat/mergo v1.0.1 // indirect
 	github.com/PuerkitoBio/goquery v1.10.1 // indirect
 	github.com/a-h/parse v0.0.0-20250122154542-74294addb73e // indirect
+	github.com/a-h/templ v0.3.833 // indirect
 	github.com/air-verse/air v1.61.7 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect

@@ -18,16 +18,6 @@ mocks:
 	@echo 'Generating mocks'
 	go tool mockery
 
-## views: generate the templ files
-.PHONY: views
-views: 
-	go tool templ generate -watch
-
-## views: generate the css files
-.PHONY: styles
-styles: 
-	./bin/tailwindcss --input ./view/static/css/style.css --output ./view/static/css/tailwind.css --watch 
-
 ## run: executes the program
 .PHONY: run
 run: 
