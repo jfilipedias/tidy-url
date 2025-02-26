@@ -6,8 +6,11 @@ templ Layout(children ...templ.Component) {
 		<head>
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1"/>
-			<title>Tidy URL</title>
+			<link rel="preconnect" href="https://fonts.googleapis.com">
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+			<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Inter&family=Literata:opsz,wght@7..72,500&family=Vidaloka&display=swap" rel="stylesheet">
 			<link href="/static/css/tailwind.css" rel="stylesheet"/>
+			<title>Tidy URL</title>
 		</head>
 		<body>
 			for _, child := range children {
