@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/url"
 
-	"github.com/jfilipedias/tidy-url/internal/constant"
+	"github.com/jfilipedias/tidy-url/constant"
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )

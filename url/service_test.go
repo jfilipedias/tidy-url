@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/jfilipedias/tidy-url/internal/constant"
-	"github.com/jfilipedias/tidy-url/internal/url"
-	"github.com/jfilipedias/tidy-url/internal/url/mocks"
+	"github.com/jfilipedias/tidy-url/constant"
+	"github.com/jfilipedias/tidy-url/url"
+	"github.com/jfilipedias/tidy-url/url/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

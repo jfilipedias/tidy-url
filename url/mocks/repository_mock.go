@@ -5,7 +5,7 @@ package mocks
 import (
 	context "context"
 
-	url "github.com/jfilipedias/tidy-url/internal/url"
+	url "github.com/jfilipedias/tidy-url/url"
 	mock "github.com/stretchr/testify/mock"
 )
 

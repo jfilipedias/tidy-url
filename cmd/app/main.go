@@ -1,7 +1,7 @@
 package main
 
-import "github.com/jfilipedias/tidy-url/internal/web"
+import "github.com/jfilipedias/tidy-url/api"
 
 func main() {
-	web.Serve()
+	api.Serve()
 }
