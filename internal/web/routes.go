@@ -13,5 +13,7 @@ func routes() http.Handler {
 	r := chi.NewRouter()
 	r.Get("/", templ.Handler(page.Home()).ServeHTTP)
 	r.Get("/static/*", http.FileServerFS(view.Files).ServeHTTP)
+
+	r.Post("/url", createURL)
 	return r
 }
