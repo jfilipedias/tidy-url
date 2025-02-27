@@ -25,21 +25,33 @@ func (_m *UseCase) EXPECT() *UseCase_Expecter {
 }
 
 // CreateAnonymous provides a mock function with given fields: ctx, originalURL
-func (_m *UseCase) CreateAnonymous(ctx context.Context, originalURL string) error {
+func (_m *UseCase) CreateAnonymous(ctx context.Context, originalURL string) (*url.URL, error) {
 	ret := _m.Called(ctx, originalURL)
 
 	if len(ret) == 0 {
 		panic("no return value specified for CreateAnonymous")
 	}
 
-	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, string) error); ok {
+	var r0 *url.URL
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, string) (*url.URL, error)); ok {
+		return rf(ctx, originalURL)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, string) *url.URL); ok {
 		r0 = rf(ctx, originalURL)
 	} else {
-		r0 = ret.Error(0)
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*url.URL)
+		}
 	}
 
-	return r0
+	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
+		r1 = rf(ctx, originalURL)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }
 
 // UseCase_CreateAnonymous_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'CreateAnonymous'
@@ -61,32 +73,44 @@ func (_c *UseCase_CreateAnonymous_Call) Run(run func(ctx context.Context, origin
 	return _c
 }
 
-func (_c *UseCase_CreateAnonymous_Call) Return(_a0 error) *UseCase_CreateAnonymous_Call {
-	_c.Call.Return(_a0)
+func (_c *UseCase_CreateAnonymous_Call) Return(_a0 *url.URL, _a1 error) *UseCase_CreateAnonymous_Call {
+	_c.Call.Return(_a0, _a1)
 	return _c
 }
 
-func (_c *UseCase_CreateAnonymous_Call) RunAndReturn(run func(context.Context, string) error) *UseCase_CreateAnonymous_Call {
+func (_c *UseCase_CreateAnonymous_Call) RunAndReturn(run func(context.Context, string) (*url.URL, error)) *UseCase_CreateAnonymous_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
 // CreateToUser provides a mock function with given fields: ctx, originalURL, userID
-func (_m *UseCase) CreateToUser(ctx context.Context, originalURL string, userID uuid.UUID) error {
+func (_m *UseCase) CreateToUser(ctx context.Context, originalURL string, userID uuid.UUID) (*url.URL, error) {
 	ret := _m.Called(ctx, originalURL, userID)
 
 	if len(ret) == 0 {
 		panic("no return value specified for CreateToUser")
 	}
 
-	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, string, uuid.UUID) error); ok {
+	var r0 *url.URL
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, uuid.UUID) (*url.URL, error)); ok {
+		return rf(ctx, originalURL, userID)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, string, uuid.UUID) *url.URL); ok {
 		r0 = rf(ctx, originalURL, userID)
 	} else {
-		r0 = ret.Error(0)
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*url.URL)
+		}
 	}
 
-	return r0
+	if rf, ok := ret.Get(1).(func(context.Context, string, uuid.UUID) error); ok {
+		r1 = rf(ctx, originalURL, userID)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }
 
 // UseCase_CreateToUser_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'CreateToUser'
@@ -109,12 +133,12 @@ func (_c *UseCase_CreateToUser_Call) Run(run func(ctx context.Context, originalU
 	return _c
 }
 
-func (_c *UseCase_CreateToUser_Call) Return(_a0 error) *UseCase_CreateToUser_Call {
-	_c.Call.Return(_a0)
+func (_c *UseCase_CreateToUser_Call) Return(_a0 *url.URL, _a1 error) *UseCase_CreateToUser_Call {
+	_c.Call.Return(_a0, _a1)
 	return _c
 }
 
-func (_c *UseCase_CreateToUser_Call) RunAndReturn(run func(context.Context, string, uuid.UUID) error) *UseCase_CreateToUser_Call {
+func (_c *UseCase_CreateToUser_Call) RunAndReturn(run func(context.Context, string, uuid.UUID) (*url.URL, error)) *UseCase_CreateToUser_Call {
 	_c.Call.Return(run)
 	return _c
 }

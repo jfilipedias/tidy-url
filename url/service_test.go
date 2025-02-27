@@ -22,8 +22,9 @@ func TestServiceCreateAnonymous(t *testing.T) {
 		Once()
 
 	s := url.NewService(repo)
-	err := s.CreateAnonymous(context.Background(), originalURL)
+	u, err := s.CreateAnonymous(context.Background(), originalURL)
 
+	assert.NotNil(t, u)
 	assert.NoError(t, err)
 }
 
@@ -35,8 +36,9 @@ func TestServiceCreateToUser(t *testing.T) {
 		Once()
 
 	s := url.NewService(repo)
-	err := s.CreateToUser(context.Background(), originalURL, uuid.New())
+	u, err := s.CreateToUser(context.Background(), originalURL, uuid.New())
 
+	assert.NotNil(t, u)
 	assert.NoError(t, err)
 }
 

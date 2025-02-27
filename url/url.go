@@ -10,12 +10,12 @@ import (
 )
 
 type URL struct {
-	ID          uuid.UUID `bson:"_id"`
-	UserID      uuid.UUID `bson:"user_id"`
-	OriginalURL string    `bson:"original_url"`
-	Hash        string    `bson:"hash"`
-	CreatedAt   time.Time `bson:"created_at"`
-	ExpireAt    time.Time `bson:"expire_at,omitzero"`
+	ID          uuid.UUID `json:"id" bson:"_id"`
+	UserID      uuid.UUID `json:"useId,omitzero" bson:"user_id"`
+	OriginalURL string    `json:"originalUrl" bson:"original_url"`
+	Hash        string    `json:"hash" bson:"hash"`
+	CreatedAt   time.Time `json:"createdAt" bson:"created_at"`
+	ExpireAt    time.Time `json:"expireAt,omitzero" bson:"expire_at,omitzero"`
 }
 
 func NewUserURL(originalURL string, userID uuid.UUID) (*URL, error) {
@@ -69,7 +69,7 @@ type Repository interface {
 }
 
 type UseCase interface {
-	CreateAnonymous(ctx context.Context, originalURL string) error
-	CreateToUser(ctx context.Context, originalURL string, userID uuid.UUID) error
+	CreateAnonymous(ctx context.Context, originalURL string) (*URL, error)
+	CreateToUser(ctx context.Context, originalURL string, userID uuid.UUID) (*URL, error)
 	Get(ctx context.Context, hash string) (*URL, error)
 }

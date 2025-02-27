@@ -14,22 +14,32 @@ func NewService(repo Repository) *Service {
 	return &Service{repo}
 }
 
-func (s *Service) CreateAnonymous(ctx context.Context, originalURL string) error {
+func (s *Service) CreateAnonymous(ctx context.Context, originalURL string) (*URL, error) {
 	url, err := NewAnonymousURL(originalURL)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return s.repo.Create(ctx, url)
+	err = s.repo.Create(ctx, url)
+	if err != nil {
+		return nil, err
+	}
+
+	return url, nil
 }
 
-func (s *Service) CreateToUser(ctx context.Context, originalURL string, userID uuid.UUID) error {
+func (s *Service) CreateToUser(ctx context.Context, originalURL string, userID uuid.UUID) (*URL, error) {
 	url, err := NewUserURL(originalURL, userID)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return s.repo.Create(ctx, url)
+	err = s.repo.Create(ctx, url)
+	if err != nil {
+		return nil, err
+	}
+
+	return url, nil
 }
 
 func (s *Service) Get(ctx context.Context, hash string) (*URL, error) {
