@@ -24,7 +24,7 @@ mocks:
 ## run: executes the program
 .PHONY: run
 run: 
-	go tool air -- -mongo-uri=${MONGODB_URI}
+	go run -mongo-uri=${MONGODB_URI}
 
 # ==================================================================================== #
 # TEST

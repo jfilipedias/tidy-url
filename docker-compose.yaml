@@ -1,0 +1,34 @@
+version: '3.1'
+name: tidy-url
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    develop:
+      watch:
+        - action: rebuild
+          path: go.mod
+        - action: sync+restart
+          path: .
+          target: /app
+          ignore:
+            - ./bin
+            - 
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+    networks:
+      - app
+  mongo:
+    image: mongodb/mongodb-community-server:7.0.15-ubuntu2204
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    ports:
+      - 27017:27017
+    networks:
+      - app
+networks:
+  app:
