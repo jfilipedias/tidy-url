@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/jfilipedias/tidy-url/url"
@@ -20,17 +21,16 @@ type Config struct {
 	}
 }
 
-type App struct {
-	config Config
-	logger *slog.Logger
+type API struct {
+	config     Config
+	logger     *slog.Logger
+	urlUseCase url.UseCase
 }
 
-func NewApp(config Config, logger *slog.Logger) *App {
-	return &App{config, logger}
-}
+func New(config Config) *API {
+	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
-func (app *App) Serve() error {
-	client, err := mongo.Connect(options.Client().ApplyURI(app.config.MongoDB.URI))
+	client, err := mongo.Connect(options.Client().ApplyURI(config.MongoDB.URI))
 	if err != nil {
 		panic(err)
 	}
@@ -38,11 +38,13 @@ func (app *App) Serve() error {
 	repo := mongodb.NewMongoDB(client)
 	urlUseCase := url.NewService(repo)
 
-	handler := NewRoutes(urlUseCase)
+	return &API{config, logger, urlUseCase}
+}
 
+func (app *API) Serve() error {
 	srv := &http.Server{
 		Addr:         fmt.Sprintf(":%d", app.config.Port),
-		Handler:      handler,
+		Handler:      app.newRoutes(),
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,

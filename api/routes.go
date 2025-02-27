@@ -4,14 +4,13 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/jfilipedias/tidy-url/url"
 )
 
-func NewRoutes(urlUseCase url.UseCase) http.Handler {
+func (api *API) newRoutes() http.Handler {
 	r := chi.NewRouter()
 
-	r.Get("/{hash}", getURL(urlUseCase))
-	r.Post("/url", createURL(urlUseCase))
+	r.Get("/{hash}", getURL(api.urlUseCase))
+	r.Post("/url", createURL(api.urlUseCase))
 
 	return r
 }
