@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"log/slog"
 	"net/http"
 	"time"
@@ -40,7 +41,7 @@ func (app *App) Serve() error {
 	handler := NewRoutes(urlUseCase)
 
 	srv := &http.Server{
-		Addr:         ":8080",
+		Addr:         fmt.Sprintf(":%d", app.config.Port),
 		Handler:      handler,
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  5 * time.Second,
