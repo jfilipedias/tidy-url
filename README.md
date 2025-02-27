@@ -4,16 +4,11 @@ A URL shortener a API built with Go and MongoDB.
 
 ## Getting stated
 
-To run the project you need Go 1.24.0.
+Setup a environment variable based on the [.env.example](.env.example).
 
-Install the tools need to run the project:
+Run the application:
 ```sh
-go mod download
-```
-
-3. Run the application:
-```sh
-make run
+docker compose up -d --watch
 ```
 
 ## Tech Stack

@@ -1,4 +1,5 @@
 bin
+tmp
 **/*mocks.go
 **/*test.go
 *.yaml

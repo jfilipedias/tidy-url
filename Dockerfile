@@ -5,10 +5,10 @@ ENV API_ENVIRONMENT=
 ENV MONGODB_URI=
 
 WORKDIR /app
-COPY go.mod ./
+COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
 
-EXPOSE ${API_PORT}
+EXPOSE $API_PORT
 
-CMD [ "go", "run", "./cmd/app", "-port=${API_PORT}}", "-env=${API_ENVIRONMENT}", "-mongo-uri=${MONGODB_URI}" ]
+CMD ["sh", "-c", "go tool air -- -port=$API_PORT -env=$API_ENVIRONMENT -db-uri=$MONGODB_URI" ]

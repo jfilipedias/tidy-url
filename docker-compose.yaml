@@ -7,28 +7,23 @@ services:
       dockerfile: Dockerfile
     develop:
       watch:
-        - action: rebuild
-          path: go.mod
-        - action: sync+restart
-          path: .
+        - action: sync
+          path: ./**/*.go
           target: /app
-          ignore:
-            - ./bin
-            - 
+          ignore: 
+            - ./**/*_mock.go
+            - ./**/*_test.go
     env_file:
       - .env
     ports:
       - 8080:8080
-    networks:
-      - app
-  mongo:
-    image: mongodb/mongodb-community-server:7.0.15-ubuntu2204
+    depends_on:
+      mongodb:
+        condition: service_started
+  mongodb:
+    image: mongodb/mongodb-community-server:7.0.16-ubi8
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGODB_INITDB_ROOT_USERNAME=user
+      - MONGODB_INITDB_ROOT_PASSWORD=pass
     ports:
       - 27017:27017
-    networks:
-      - app
-networks:
-  app:
