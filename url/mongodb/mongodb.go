@@ -2,9 +2,9 @@ package mongodb
 
 import (
 	"context"
-	"net/url"
 
 	"github.com/jfilipedias/tidy-url/constant"
+	"github.com/jfilipedias/tidy-url/url"
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
