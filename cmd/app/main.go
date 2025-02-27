@@ -13,7 +13,9 @@ func main() {
 
 	flag.IntVar(&cfg.Port, "port", 4000, "API server port")
 	flag.StringVar(&cfg.Env, "env", "development", "Environment (development|staging|production)")
-	flag.StringVar(&cfg.MongoDB.URI, "mongo-uri", "", "MongoDB URI")
+	flag.StringVar(&cfg.MongoDB.URI, "db-uri", "", "MongoDB URI")
+
+	flag.Parse()
 
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
