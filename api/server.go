@@ -14,11 +14,8 @@ import (
 )
 
 type Config struct {
-	Port    int
-	Env     string
-	MongoDB struct {
-		URI string
-	}
+	Port     int
+	MongoURI string
 }
 
 type API struct {
@@ -30,7 +27,7 @@ type API struct {
 func New(config Config) *API {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
-	client, err := mongo.Connect(options.Client().ApplyURI(config.MongoDB.URI))
+	client, err := mongo.Connect(options.Client().ApplyURI(config.MongoURI))
 	if err != nil {
 		panic(err)
 	}
@@ -51,6 +48,6 @@ func (app *API) Serve() error {
 		ErrorLog:     slog.NewLogLogger(app.logger.Handler(), slog.LevelError),
 	}
 
-	app.logger.Info("starting server", "addr", srv.Addr, "env", app.config.Env)
+	app.logger.Info("starting server", "addr", srv.Addr)
 	return srv.ListenAndServe()
 }

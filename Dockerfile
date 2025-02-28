@@ -10,4 +10,4 @@ RUN go mod download
 
 EXPOSE $API_PORT
 
-CMD ["sh", "-c", "go tool air -- -port=$API_PORT -env=$API_ENVIRONMENT -db-uri=$MONGODB_URI" ]
+CMD ["sh", "-c", "go tool air" ]

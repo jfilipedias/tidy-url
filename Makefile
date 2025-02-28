@@ -24,7 +24,7 @@ mocks:
 ## run: executes the program
 .PHONY: run
 run: 
-	go tool air -- -port=${API_PORT} -env=${API_ENVIRONMENT} -db-uri=${MONGODB_URI}
+	go tool air
 
 # ==================================================================================== #
 # TEST
