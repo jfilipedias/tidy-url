@@ -51,5 +51,6 @@ func (app *API) Serve() error {
 		ErrorLog:     slog.NewLogLogger(app.logger.Handler(), slog.LevelError),
 	}
 
+	app.logger.Info("starting server", "addr", srv.Addr, "env", app.config.Env)
 	return srv.ListenAndServe()
 }
