@@ -38,16 +38,16 @@ func New(config Config) *API {
 	return &API{config, logger, urlUseCase}
 }
 
-func (app *API) Serve() error {
+func (api *API) Serve() error {
 	srv := &http.Server{
-		Addr:         fmt.Sprintf(":%d", app.config.Port),
-		Handler:      app.newRoutes(),
+		Addr:         fmt.Sprintf(":%d", api.config.Port),
+		Handler:      api.newRoutes(),
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
-		ErrorLog:     slog.NewLogLogger(app.logger.Handler(), slog.LevelError),
+		ErrorLog:     slog.NewLogLogger(api.logger.Handler(), slog.LevelError),
 	}
 
-	app.logger.Info("starting server", "addr", srv.Addr)
+	api.logger.Info("starting server", "addr", srv.Addr)
 	return srv.ListenAndServe()
 }
