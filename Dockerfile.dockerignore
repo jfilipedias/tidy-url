@@ -1,9 +1,0 @@
-bin
-tmp
-**/*mocks.go
-**/*test.go
-*.yaml
-*.md
-.env?
-.gitignore
-Makefile

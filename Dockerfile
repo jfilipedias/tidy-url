@@ -5,9 +5,8 @@ ENV API_ENVIRONMENT=
 ENV MONGODB_URI=
 
 WORKDIR /app
-COPY go.mod go.sum ./
-RUN go mod download
 COPY . .
+RUN go mod download
 
 EXPOSE $API_PORT
 

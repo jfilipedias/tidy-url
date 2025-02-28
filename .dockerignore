@@ -1,0 +1,12 @@
+/.git
+/bin
+/tmp
+/docs
+*_mocks.go
+*_test.go
+*.yaml
+*.md
+.env
+.env.*
+.gitignore
+Makefile
